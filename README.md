@@ -58,23 +58,26 @@ Planned components:
 
 - [ ] Project Setup
 - [ ] Data Model & PostgreSQL
-- [ ] DKB CSV Import
+- [ ] Bank CSV Import
 - [ ] Transaction Management
 - [ ] Categories
 - [ ] Dashboard & Visualization
 - [ ] GitHub Actions CI
 - [ ] Docker Deployment
 
-### Future Enhancements
+### ML
 
 - [ ] Rule Engine & Normalization
 - [ ] Embedding Service
 - [ ] Transaction Classifier
 - [ ] Human-in-the-Loop Feedback
+
+### Production Ready
+
 - [ ] Monitoring & Logging
 - [ ] Security Hardening
 - [ ] Open Banking Integration
-- [ ] Budget Planning & Analytics
+
 
 ---
 
