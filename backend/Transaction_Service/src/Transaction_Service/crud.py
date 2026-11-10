@@ -19,5 +19,8 @@ def get_transaction(db: Session, transaction_id: int) -> Transaction | None:
 
 
 #Read all data entries from the database.
-def get_transaction(db: Session) -> select(Transaction):
+#select(Transaction) creates a SQl  SELECT * statement
+# to retrieve all rows from the Transaction table.
+def get_transaction(db: Session) -> list[Transaction]:
+    statement = select(Transaction)
     return list(db.scalars(statement).all())
