@@ -4,10 +4,10 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 
-from database import Base, engine, Session,get_db
+from .database import Base, engine,get_db
 #Transaction describes the structure of data in the database. Defined in models.py.
-from models import Transaction
-from schema import TransactionCreate, TransactionResponse
+from .models import Transaction
+from .schema import TransactionCreate, TransactionResponse
 from .crud import create_transaction
 
 #Create an instance of the FastAPI class to define the API application.

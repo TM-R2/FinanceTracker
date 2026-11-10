@@ -1,12 +1,18 @@
 from sqlalchemy.orm import Session
 
 from .models import Transaction
-from .schemas import TransactionCreate
+from .schema import TransactionCreate
 
-
-def create_transaction(db: Session, transaction: TransactionCreate):
+#Frontend sents Json data. Pydantic model is used to convert
+# the Json data to a python object.
+#model_dump converts the pydantic model to a dict.
+def create_transaction(db: Session, transaction: TransactionCreate)-> Transaction:
     db_transaction = Transaction(**transaction.model_dump())
     db.add(db_transaction)
     db.commit()
     db.refresh(db_transaction)
     return db_transaction
+
+
+def get_transaction(db: Session, transaction_id: int) -> Transaction | None:
+    return db.get(Transaction, transaction_id)

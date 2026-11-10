@@ -1,5 +1,6 @@
-from sqlalchemy import  Integer, String, float,date
-from Decimal import Decimal
+from sqlalchemy import  Integer, String, Float,Date
+from datetime import date
+from decimal import Decimal
 from sqlalchemy.orm import Mapped, mapped_column
 from .database import Base
 
@@ -13,11 +14,11 @@ class Transaction(Base):
     __tablename__ = "transactions"
 
     id : Mapped[int] = mapped_column(primary_key=True)
-    name : Mapped[str] = mapped_column(index=True, nullable=False)
-    description : Mapped[str] = mapped_column(index=True, nullable=True)
-    amount : Mapped[float] = mapped_column(index=True, nullable=False)
-    category : Mapped[str] = mapped_column(index=True, nullable=False)
-    time : Mapped[datetime] = mapped_column(index=True, nullable=False)
+    name : Mapped[str] = mapped_column(nullable=False)
+    description : Mapped[str] = mapped_column(nullable=True)
+    amount : Mapped[float] = mapped_column(nullable=False)
+    category : Mapped[str] = mapped_column(nullable=False)
+    time : Mapped[date] = mapped_column(Date, nullable=False)
 
     
 
