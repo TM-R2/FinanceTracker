@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
+*.pyc
 
 # Virtual Environments
 .venv/
@@ -57,3 +58,4 @@ docker-data/
 
 # Secrets
 secrets/
+.env

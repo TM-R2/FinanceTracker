@@ -1,0 +1,29 @@
+services:
+
+  postgres:
+    image: postgres:17
+        
+    environment:
+      POSTGRES_USER: toni
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+      POSTGRES_DB: account_db
+    #Define secret access for this service.
+    secrets:
+      - db_password
+    #Host:container port mapping for test. FASTAPI currently
+    #not in container network.
+    ports:
+      - "5432:5432"
+    #Stores the database data in a volume to persist data
+    #after container restarts.
+    #Service postgres should use volume postgres_data and store the data in the container path /var/lib/postgresql/data.
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+#Create a secret for compose from path.
+secrets:
+  db_password:
+    file: ./secrets/db_password
+#define a volume.
+volumes: 
+  postgres_data:

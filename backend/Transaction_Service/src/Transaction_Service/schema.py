@@ -24,6 +24,8 @@ class TransactionResponse(TransactionBase):
 
     model_config = ConfigDict(from_attributes=True)
 
+class TransactionUpdate(BaseModel):
+    pass
 
 
 

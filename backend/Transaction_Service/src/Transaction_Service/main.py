@@ -8,7 +8,7 @@ from .database import Base, engine,get_db
 #Transaction describes the structure of data in the database. Defined in models.py.
 from .models import Transaction
 from .schema import TransactionCreate, TransactionResponse
-from .crud import create_transaction
+from .crud import create_transaction, get_transaction
 
 #Create an instance of the FastAPI class to define the API application.
 #Execute app witch uvicorn main:app --reload to start the API server.
@@ -24,3 +24,10 @@ Base.metadata.create_all(bind=engine)
 @app.post("/transactions/", response_model=TransactionResponse)
 def post_transaction(transaction: TransactionCreate, db: Session = Depends(get_db)):
     return create_transaction(db=db, transaction=transaction)
+
+@app.get(
+"/transactions/",
+response_model=list[TransactionResponse]
+)
+def read_transaction(db: Session = Depends(get_db)):
+    return get_transaction(db)

@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+
 from sqlalchemy import URL,create_engine
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 
@@ -17,7 +18,7 @@ with open(password_file, "r") as f:
 
 #databes+driver+user+password+host+port+database_name
 SQLALCHEMY_DATABASE_URL = URL.create(
-    drivername="postgresql+psycopg ",
+    drivername="postgresql+psycopg",
     username="toni",
     password=password,
     host="localhost",
