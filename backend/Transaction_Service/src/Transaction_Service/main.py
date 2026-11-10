@@ -32,29 +32,16 @@ response_model=list[TransactionResponse]
 def read_transaction(db: Session = Depends(get_db)):
     return get_transaction_all(db)
 
-@app.get(
-    "/transactions/{transaction_id}",
-    response_model=TransactionResponse
-)
-def read_transation(
-        transaction_id: int,
-        db: Session = Depends(get_db)
-):
+@app.get("/transactions/{transaction_id}",response_model=TransactionResponse)
+def read_transation(transaction_id: int,db: Session = Depends(get_db)):
     transaction = get_transaction(db=db, transaction_id=transaction_id)
     if transaction is None:
         raise HTTPException(status_code=404, detail="Transaction not found")
 
     return transaction
 
-@app.put(
-    "/transactions/{transaction_id}",
-    response_model=TransactionResponse
-)
-def put_transaction(
-        transaction_id: int,
-        transaction: TransactionUpdate,
-        db: Session = Depends(get_db)
-):
+@app.put("/transactions/{transaction_id}",response_model=TransactionResponse)
+def put_transaction(transaction_id: int,transaction: TransactionUpdate,db: Session = Depends(get_db)):
     db_transaction = get_transaction(db=db, transaction_id=transaction_id)
     if db_transaction is None:
         raise HTTPException(status_code=404, detail="Transaction not found")

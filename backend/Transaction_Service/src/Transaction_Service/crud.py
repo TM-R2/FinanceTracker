@@ -29,10 +29,15 @@ def get_transaction_all(db: Session) -> list[Transaction]:
 
 def update_transaction(db: Session, db_transaction: Transaction, transaction: TransactionUpdate) -> Transaction:
     update_data = transaction.model_dump()
-
+    print(f"Vorher: {db_transaction.amount}")
+    print(f"Update: {update_data}")
     for key, value in update_data.items():
         setattr(db_transaction, key, value)
+    
+    print(f"Nachher: {db_transaction.amount}")
     db.commit()
     db.refresh(db_transaction)
+    print(f"Nach Commit: {db_transaction.amount}")
+
     return db_transaction
 
