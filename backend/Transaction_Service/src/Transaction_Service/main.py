@@ -7,8 +7,8 @@ from sqlalchemy.orm import Session
 from .database import Base, engine,get_db
 #Transaction describes the structure of data in the database. Defined in models.py.
 from .models import Transaction
-from .schema import TransactionCreate, TransactionResponse
-from .crud import create_transaction, get_transaction
+from .schema import TransactionCreate, TransactionResponse, TransactionUpdate
+from .crud import create_transaction, get_transaction_all, get_transaction, update_transaction
 
 #Create an instance of the FastAPI class to define the API application.
 #Execute app witch uvicorn main:app --reload to start the API server.
@@ -30,4 +30,32 @@ def post_transaction(transaction: TransactionCreate, db: Session = Depends(get_d
 response_model=list[TransactionResponse]
 )
 def read_transaction(db: Session = Depends(get_db)):
-    return get_transaction(db)
+    return get_transaction_all(db)
+
+@app.get(
+    "/transactions/{transaction_id}",
+    response_model=TransactionResponse
+)
+def read_transation(
+        transaction_id: int,
+        db: Session = Depends(get_db)
+):
+    transaction = get_transaction(db=db, transaction_id=transaction_id)
+    if transaction is None:
+        raise HTTPException(status_code=404, detail="Transaction not found")
+
+    return transaction
+
+@app.put(
+    "/transactions/{transaction_id}",
+    response_model=TransactionResponse
+)
+def put_transaction(
+        transaction_id: int,
+        transaction: TransactionUpdate,
+        db: Session = Depends(get_db)
+):
+    db_transaction = get_transaction(db=db, transaction_id=transaction_id)
+    if db_transaction is None:
+        raise HTTPException(status_code=404, detail="Transaction not found")
+    return update_transaction(db=db, db_transaction=db_transaction, transaction=transaction)
